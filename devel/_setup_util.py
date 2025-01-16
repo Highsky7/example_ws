@@ -269,7 +269,11 @@ if __name__ == '__main__':
         if not args.local:
             # environment at generation time
 <<<<<<< HEAD
+<<<<<<< HEAD
             CMAKE_PREFIX_PATH = r'/home/junseong/ROS_ws/devel;/home/junseong/catkin_ws/devel;/opt/ros/noetic'.split(';')
+=======
+            CMAKE_PREFIX_PATH = r'/opt/ros/noetic'.split(';')
+>>>>>>> origin/main
 =======
             CMAKE_PREFIX_PATH = r'/home/hannibal/ROS_ws/devel;/opt/ros/noetic'.split(';')
 >>>>>>> origin/main
