@@ -1,2 +1,6 @@
 - setup-file:
+<<<<<<< HEAD
     local-name: /home/junseong/example_ws/devel/setup.sh
+=======
+    local-name: /home/hannibal/example_ws/devel/setup.sh
+>>>>>>> origin/main
