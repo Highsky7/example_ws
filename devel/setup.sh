@@ -11,15 +11,7 @@
 
 # since this file is sourced either use the provided _CATKIN_SETUP_DIR
 # or fall back to the destination set at configure time
-<<<<<<< HEAD
-<<<<<<< HEAD
-: ${_CATKIN_SETUP_DIR:=/home/junseong/example_ws/devel}
-=======
-: ${_CATKIN_SETUP_DIR:=/home/yoo/example_ws/devel}
->>>>>>> origin/main
-=======
-: ${_CATKIN_SETUP_DIR:=/home/hannibal/example_ws/devel}
->>>>>>> origin/main
+: ${_CATKIN_SETUP_DIR:=/home/highsky/example_ws/devel}
 _SETUP_UTIL="$_CATKIN_SETUP_DIR/_setup_util.py"
 unset _CATKIN_SETUP_DIR
 
