@@ -1,6 +1,2 @@
 - setup-file:
-<<<<<<< HEAD
     local-name: /home/yoo/example_ws/devel/setup.sh
-=======
-    local-name: /home/highsky/example_ws/devel/setup.sh
->>>>>>> 86eba9652a14b3c4fa8cb665a1bd320c01ac08e5
