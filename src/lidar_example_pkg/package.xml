@@ -25,6 +25,9 @@
   <exec_depend>visualization_msgs</exec_depend>
   <exec_depend>pcl_ros</exec_depend>
   <exec_depend>pcl_conversions</exec_depend>
+  <exec_depend>python3</exec_depend>
+  <exec_depend>hdbscan</exec_depend>
+
 
   <!-- Export -->
   <export>

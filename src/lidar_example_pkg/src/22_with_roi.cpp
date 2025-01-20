@@ -29,7 +29,7 @@ public:
         pcl::VoxelGrid<pcl::PointXYZ> vg;
         pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_downsampled(new pcl::PointCloud<pcl::PointXYZ>);
         vg.setInputCloud(cloud);
-        vg.setLeafSize(0.1, 0.1, 0.1);
+        vg.setLeafSize(0.0001, 0.0001, 0.0001);
         vg.filter(*cloud_downsampled);
 
         // 평면 분할 (RANSAC)
@@ -54,9 +54,9 @@ public:
         std::vector<pcl::PointIndices> cluster_indices;
         pcl::search::KdTree<pcl::PointXYZ>::Ptr tree(new pcl::search::KdTree<pcl::PointXYZ>);
         pcl::EuclideanClusterExtraction<pcl::PointXYZ> ec;
-        ec.setClusterTolerance(0.6);
-        ec.setMinClusterSize(10);
-        ec.setMaxClusterSize(1000);
+        ec.setClusterTolerance(0.2);
+        ec.setMinClusterSize(50);
+        ec.setMaxClusterSize(300);
         ec.setSearchMethod(tree);
         ec.setInputCloud(cloud_filtered);
         ec.extract(cluster_indices);
@@ -99,7 +99,7 @@ public:
             marker.color.r = 1.0;
             marker.color.g = 0.0;
             marker.color.b = 0.0;
-            marker.color.a = 0.4;
+            marker.color.a = 0.2;
             marker_array.markers.push_back(marker);
         }
         marker_pub_.publish(marker_array);
