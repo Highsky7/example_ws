@@ -11,6 +11,10 @@ find_package(catkin REQUIRED COMPONENTS
   pcl_conversions
 )
 
+## PCL 패키지 찾기
+find_package(PCL REQUIRED)
+
+
 ## Catkin 패키지 설정
 catkin_package(
   CATKIN_DEPENDS rospy roscpp sensor_msgs visualization_msgs pcl_ros pcl_conversions
@@ -19,9 +23,14 @@ catkin_package(
 ## 빌드 경로 설정
 include_directories(
   ${catkin_INCLUDE_DIRS}
+  ${PCL_INCLUDE_DIRS}
   /opt/ros/noetic/include  # ROS 헤더 경로 추가
   /usr/include/pcl-1.10    # PCL 헤더 경로 추가
 )
+
+## PCL 라이브러리 링크 설정
+link_directories(${PCL_LIBRARY_DIRS})
+add_definitions(${PCL_DEFINITIONS})
 
 ## Python 스크립트 설치
 catkin_install_python(

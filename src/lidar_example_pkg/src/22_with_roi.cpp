@@ -25,12 +25,27 @@ public:
         pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>);
         pcl::fromROSMsg(*msg, *cloud);
 
+
+
+        // check the size of whole cloud
+        Eigen::Vector4f min_pt, max_pt;  // 최소, 최대 좌표를 저장할 변수
+        pcl::getMinMax3D(*cloud, min_pt, max_pt);  // PCL의 getMinMax3D 함수 사용
+
+        std::cout << "Point Cloud Range: "
+                << "X: [" << min_pt[0] << ", " << max_pt[0] << "], "
+                << "Y: [" << min_pt[1] << ", " << max_pt[1] << "], "
+                << "Z: [" << min_pt[2] << ", " << max_pt[2] << "]" << std::endl;
+
+
+
+
         // 다운샘플링
         pcl::VoxelGrid<pcl::PointXYZ> vg;
         pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_downsampled(new pcl::PointCloud<pcl::PointXYZ>);
         vg.setInputCloud(cloud);
-        vg.setLeafSize(0.0001, 0.0001, 0.0001);
+        vg.setLeafSize(0.01, 0.01, 0.01);
         vg.filter(*cloud_downsampled);
+
 
         // 평면 분할 (RANSAC)
         pcl::SACSegmentation<pcl::PointXYZ> seg;
@@ -38,7 +53,7 @@ public:
         pcl::ModelCoefficients::Ptr coefficients(new pcl::ModelCoefficients);
         seg.setModelType(pcl::SACMODEL_PLANE);
         seg.setMethodType(pcl::SAC_RANSAC);
-        seg.setDistanceThreshold(0.3);
+        seg.setDistanceThreshold(0.25);
         seg.setInputCloud(cloud_downsampled);
         seg.segment(*inliers, *coefficients);
 
@@ -49,13 +64,14 @@ public:
         extract.setIndices(inliers);
         extract.setNegative(true);
         extract.filter(*cloud_filtered);
+        
 
         // 클러스터링 (Euclidean Cluster Extraction)
         std::vector<pcl::PointIndices> cluster_indices;
         pcl::search::KdTree<pcl::PointXYZ>::Ptr tree(new pcl::search::KdTree<pcl::PointXYZ>);
         pcl::EuclideanClusterExtraction<pcl::PointXYZ> ec;
         ec.setClusterTolerance(0.2);
-        ec.setMinClusterSize(50);
+        ec.setMinClusterSize(20);
         ec.setMaxClusterSize(300);
         ec.setSearchMethod(tree);
         ec.setInputCloud(cloud_filtered);
